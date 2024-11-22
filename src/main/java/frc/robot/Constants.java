@@ -23,6 +23,6 @@ public final class Constants {
     //We skip 1 for safe measure
     //Drive Base is usually numbers 2-8
     //All Can Id's are ints
-    public static final int MotorName = 9;
+    public static final int MotorName = 18;
   }
 }

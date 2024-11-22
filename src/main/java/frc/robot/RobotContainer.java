@@ -5,9 +5,11 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.SingleMotorSubsystem;
 
+import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ExampleCommandOut;
+import frc.robot.subsystems.SingleMotorSubsystem;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -20,7 +22,9 @@ import edu.wpi.first.wpilibj.Joystick;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final SingleMotorSubsystem m_motor = new SingleMotorSubsystem();
-  private final ExampleCommand m_moveMotor = new ExampleCommand(m_motor);
+
+  private final ExampleCommand m_moveMotorIn = new ExampleCommand(m_motor);
+  private final ExampleCommandOut m_moveMotorOut = new ExampleCommandOut(m_motor);
 
   private final Joystick m_joystick = new Joystick(OperatorConstants.kDriverControllerPort1);
   private final CommandGenericHID m_buttonBoard = new CommandGenericHID(m_joystick.getPort());
@@ -34,7 +38,8 @@ public class RobotContainer {
 
 
   private void configureBindings() {
-    m_buttonBoard.button(1).whileTrue(m_moveMotor);
+    m_buttonBoard.button(1).whileTrue(m_moveMotorIn);
+    m_buttonBoard.button(2).whileTrue(m_moveMotorOut);
 
   }
 
@@ -43,8 +48,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  // public Command getAutonomousCommand() {
-  //   // An example command will be run in autonomous
-  //   return Autos.(m_moveMotor);
-  // }
+  public Command getAutonomousCommand() {
+    // An example command will be run in autonomous
+    return m_moveMotorIn;
+  }
 }
